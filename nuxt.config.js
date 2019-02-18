@@ -67,5 +67,8 @@ module.exports = {
     extend(config, ctx) {
 
     }
+  },
+  loading: {
+    color: '#3B8070'
   }
 }

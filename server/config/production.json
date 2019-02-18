@@ -1,0 +1,14 @@
+{
+  "db": "mongodb://localhost/nuxt-app",
+  "base": "http://127.0.0.1:3000",
+  "SITE_ROOT_URL": "http://codingdream.ngrok.cc",
+  "wechat": {
+    "appID": "wxe9e2ec8d631c277d",
+    "appSecret": "ebacae6574a8aa091684c937edf6f48d",
+    "token": "imoocisareallyamzingplacetolearn"
+  },
+  "qiniu": {
+    "AK": "-dLG8KAfn4_fmsxZBfeqDgrtyM7e3rIzQezhdxvk",
+    "SK": "wcgqiwkL7QaX5Bz8OtyJEfLuAFb_qCrqFg_eNbW0"
+  }
+}

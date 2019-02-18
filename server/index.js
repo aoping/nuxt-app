@@ -1,6 +1,9 @@
 const Koa = require('koa')
-const Router = require('koa-router')
 const consola = require('consola')
+const database = require('./database')
+const koaBody = require('koa-bodyparser')
+const session = require('koa-session')
+
 const {
   Nuxt,
   Builder
@@ -26,12 +29,25 @@ async function start() {
     const builder = new Builder(nuxt)
     await builder.build()
   }
+  // 连接数据库
+  database(app)
 
-  var router = new Router()
+  // bodyparser
+  app.use(koaBody())
 
-  router.post('/api/signup', (ctx) => {
-    console.log(ctx)
-  })
+  // session
+  app.keys = ['ice']
+
+  const CONFIG = {
+    key: 'koa:sess',
+    maxAge: 86400000,
+    overwrite: true,
+    signed: true,
+    rolling: false
+  }
+  app.use(session(CONFIG, app))
+
+  const router = require('./routers')
 
   app
     .use(router.routes())
