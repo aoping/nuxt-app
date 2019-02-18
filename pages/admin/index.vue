@@ -1,12 +1,19 @@
 <template>
-  <div>需要登录后才可见</div>
+  <div>
+    <p>{{user.email}}</p>
+    <p>{{user.nickname}}</p>
+  </div>
 </template>
 
 <script>
+import { mapState } from 'vuex'
 export default {
   middleware: "auth",
   data() {
     return {};
+  },
+  computed: {
+    ...mapState(['user'])
   },
   components: {}
 };

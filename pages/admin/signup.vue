@@ -1,11 +1,5 @@
 <template>
   <div>
-    <a-alert
-      v-if="errmsg"
-      :message="errmsg"
-      type="error"
-      showIcon
-    />
     <a-form class="ant-form" :form="form" @submit="handleSubmit">
       <a-form-item v-bind="formItemLayout" label="E-mail">
         <a-input
@@ -103,7 +97,6 @@ export default {
           }
         }
       },
-      errmsg: ''
     };
   },
   beforeCreate() {
@@ -120,10 +113,7 @@ export default {
           if (res.success) {
             this.$router.push('/admin/login')
           } else {
-            this.errmsg = res.err
-            setTimeout(()=>{
-              this.errmsg = ''
-            }, 2000)
+            this.$message.error(res.err)
           }
         }
       });
