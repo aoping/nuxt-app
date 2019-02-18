@@ -1,11 +1,45 @@
 <template>
   <a-layout>
+    <a-layout-header>
+      <a-row>
+        <a-col :span="12">后台管理系统</a-col>
+        <a-col :span="12" v-if="user" class="header-right">
+          <span>{{user.email}}</span>
+          <a-divider type="vertical" />
+          <a-avatar style="color: #f56a00; backgroundColor: #fde3cf">{{user.nickname}}</a-avatar>
+          <a-divider type="vertical" />
+          <a style="color:#fff;" href="javascript:;" @click="handleLogout">登出</a>
+        </a-col>
+      </a-row>
+    </a-layout-header>
     <a-layout-content>
       <nuxt/>
     </a-layout-content>
     <a-layout-footer>Footer</a-layout-footer>
   </a-layout>
 </template>
+
+<script>
+import { mapState, mapActions } from 'vuex'
+export default {
+  computed: {
+    ...mapState(['user'])
+  },
+  methods:{
+    ...mapActions([
+      'logout'
+    ]),
+    async handleLogout() {
+      let res = await this.logout()
+      if (res.success) {
+        this.$router.push('/admin/login')
+      } else {
+        this.$message.error(res.err)
+      }
+    }
+  }
+};
+</script>
 
 <style>
 html {

@@ -48,8 +48,9 @@ export default {
   async logout({
     commit
   }) {
-    await axios.post('/admin/logout')
+    let res = await axios.post('/api/logout')
 
     commit('SET_USER', null)
+    return res
   },
 }

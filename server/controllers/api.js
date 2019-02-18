@@ -91,6 +91,12 @@ module.exports.login = async (ctx, next) => {
     success: false,
     err: '密码错误'
   })
-
-
 }
+
+module.exports.logout = async (ctx, next) => {
+  ctx.session = null
+  ctx.body = {
+    success: true
+  }
+}
+
