@@ -1,6 +1,10 @@
 const Koa = require('koa')
+const Router = require('koa-router')
 const consola = require('consola')
-const { Nuxt, Builder } = require('nuxt')
+const {
+  Nuxt,
+  Builder
+} = require('nuxt')
 
 const app = new Koa()
 
@@ -14,7 +18,7 @@ async function start() {
 
   const {
     host = process.env.HOST || '127.0.0.1',
-    port = process.env.PORT || 3000
+      port = process.env.PORT || 3000
   } = nuxt.options.server
 
   // Build in development
@@ -22,6 +26,16 @@ async function start() {
     const builder = new Builder(nuxt)
     await builder.build()
   }
+
+  var router = new Router()
+
+  router.post('/api/signup', (ctx) => {
+    console.log(ctx)
+  })
+
+  app
+    .use(router.routes())
+    .use(router.allowedMethods())
 
   app.use(ctx => {
     ctx.status = 200
