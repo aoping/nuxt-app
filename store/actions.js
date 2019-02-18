@@ -1,4 +1,5 @@
 import Services from './services'
+import axios from "../plugins/axios";
 
 export default {
   nuxtServerInit({
@@ -29,18 +30,14 @@ export default {
     password
   }) {
     try {
-      let res = await axios.post('/admin/login', {
+      let res = await axios.post('/api/login', {
         email,
         password
       })
 
-      const {
-        data
-      } = res
+      if (res.success) commit('SET_USER', res.data)
 
-      if (data.success) commit('SET_USER', data.data)
-
-      return data
+      return res
     } catch (e) {
       if (e.response.status === 401) {
         throw new Error('来错地方了')

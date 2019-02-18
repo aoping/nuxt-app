@@ -118,7 +118,7 @@ export default {
           let res = await axios.post("/api/signup", values);
           console.log(res);
           if (res.success) {
-
+            this.$router.push('/admin/login')
           } else {
             this.errmsg = res.err
             setTimeout(()=>{
