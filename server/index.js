@@ -1,8 +1,8 @@
 const Koa = require('koa')
 const consola = require('consola')
 const database = require('./database')
-const koaBody = require('koa-bodyparser')
-const session = require('koa-session')
+const middlewares = require('./middleware')
+
 
 const {
   Nuxt,
@@ -32,20 +32,8 @@ async function start() {
   // 连接数据库
   database(app)
 
-  // bodyparser
-  app.use(koaBody())
-
-  // session
-  app.keys = ['ice']
-
-  const CONFIG = {
-    key: 'koa:sess',
-    maxAge: 86400000,
-    overwrite: true,
-    signed: true,
-    rolling: false
-  }
-  app.use(session(CONFIG, app))
+  // middlewares
+  middlewares(app)
 
   const router = require('./routers')
 

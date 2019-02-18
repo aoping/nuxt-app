@@ -1,69 +1,77 @@
 <template>
-  <a-form class="ant-form" :form="form" @submit="handleSubmit">
-    <a-form-item v-bind="formItemLayout" label="E-mail">
-      <a-input
-        v-decorator="[
-          'email',
-          {
-            rules: [{
-              type: 'email', message: 'The input is not valid E-mail!',
-            }, {
-              required: true, message: 'Please input your E-mail!',
-            }]
-          }
-        ]"
-      />
-    </a-form-item>
-    <a-form-item v-bind="formItemLayout" label="Password">
-      <a-input
-        v-decorator="[
-          'password',
-          {
-            rules: [{
-              required: true, message: 'Please input your password!',
-            }, {
-              validator: validateToNextPassword,
-            }],
-          }
-        ]"
-        type="password"
-      />
-    </a-form-item>
-    <a-form-item v-bind="formItemLayout" label="Confirm Password">
-      <a-input
-        v-decorator="[
-          'confirm',
-          {
-            rules: [{
-              required: true, message: 'Please confirm your password!',
-            }, {
-              validator: compareToFirstPassword,
-            }],
-          }
-        ]"
-        type="password"
-        @blur="handleConfirmBlur"
-      />
-    </a-form-item>
-    <a-form-item v-bind="formItemLayout">
-      <span slot="label">Nickname&nbsp;
-        <a-tooltip title="What do you want others to call you?">
-          <a-icon type="question-circle-o"/>
-        </a-tooltip>
-      </span>
-      <a-input
-        v-decorator="[
-          'nickname',
-          {
-            rules: [{ required: true, message: 'Please input your nickname!', whitespace: true }]
-          }
-        ]"
-      />
-    </a-form-item>
-    <a-form-item v-bind="tailFormItemLayout">
-      <a-button type="primary" html-type="submit">Register</a-button>
-    </a-form-item>
-  </a-form>
+  <div>
+    <a-alert
+      v-if="errmsg"
+      :message="errmsg"
+      type="error"
+      showIcon
+    />
+    <a-form class="ant-form" :form="form" @submit="handleSubmit">
+      <a-form-item v-bind="formItemLayout" label="E-mail">
+        <a-input
+          v-decorator="[
+            'email',
+            {
+              rules: [{
+                type: 'email', message: 'The input is not valid E-mail!',
+              }, {
+                required: true, message: 'Please input your E-mail!',
+              }]
+            }
+          ]"
+        />
+      </a-form-item>
+      <a-form-item v-bind="formItemLayout" label="Password">
+        <a-input
+          v-decorator="[
+            'password',
+            {
+              rules: [{
+                required: true, message: 'Please input your password!',
+              }, {
+                validator: validateToNextPassword,
+              }],
+            }
+          ]"
+          type="password"
+        />
+      </a-form-item>
+      <a-form-item v-bind="formItemLayout" label="Confirm Password">
+        <a-input
+          v-decorator="[
+            'confirm',
+            {
+              rules: [{
+                required: true, message: 'Please confirm your password!',
+              }, {
+                validator: compareToFirstPassword,
+              }],
+            }
+          ]"
+          type="password"
+          @blur="handleConfirmBlur"
+        />
+      </a-form-item>
+      <a-form-item v-bind="formItemLayout">
+        <span slot="label">Nickname&nbsp;
+          <a-tooltip title="What do you want others to call you?">
+            <a-icon type="question-circle-o"/>
+          </a-tooltip>
+        </span>
+        <a-input
+          v-decorator="[
+            'nickname',
+            {
+              rules: [{ required: true, message: 'Please input your nickname!', whitespace: true }]
+            }
+          ]"
+        />
+      </a-form-item>
+      <a-form-item v-bind="tailFormItemLayout">
+        <a-button type="primary" html-type="submit">Register</a-button>
+      </a-form-item>
+    </a-form>
+  </div>
 </template>
 
 <script>
@@ -94,7 +102,8 @@ export default {
             offset: 8
           }
         }
-      }
+      },
+      errmsg: ''
     };
   },
   beforeCreate() {
@@ -108,6 +117,14 @@ export default {
           console.log("Received values of form: ", values);
           let res = await axios.post("/api/signup", values);
           console.log(res);
+          if (res.success) {
+
+          } else {
+            this.errmsg = res.err
+            setTimeout(()=>{
+              this.errmsg = ''
+            }, 2000)
+          }
         }
       });
     },
