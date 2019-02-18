@@ -1,0 +1,29 @@
+{
+  "name": "nuxt-app",
+  "version": "1.0.0",
+  "description": "My world-class Nuxt.js project",
+  "author": "zoro",
+  "private": true,
+  "scripts": {
+    "dev": "cross-env NODE_ENV=development nodemon server/index.js --watch server",
+    "build": "nuxt build",
+    "start": "cross-env NODE_ENV=production node server/index.js",
+    "generate": "nuxt generate",
+    "test": "jest"
+  },
+  "dependencies": {
+    "cross-env": "^5.2.0",
+    "nuxt": "^2.4.0",
+    "koa": "^2.6.2",
+    "ant-design-vue": "^1.1.10",
+    "@nuxtjs/pwa": "^2.6.0"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.9",
+    "@vue/test-utils": "^1.0.0-beta.27",
+    "babel-core": "7.0.0-bridge.0",
+    "babel-jest": "^23.6.0",
+    "jest": "^23.6.0",
+    "vue-jest": "^3.0.2"
+  }
+}
