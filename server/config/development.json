@@ -10,5 +10,7 @@
   "qiniu": {
     "AK": "-dLG8KAfn4_fmsxZBfeqDgrtyM7e3rIzQezhdxvk",
     "SK": "wcgqiwkL7QaX5Bz8OtyJEfLuAFb_qCrqFg_eNbW0"
-  }
+  },
+  "default_limit": 20,
+  "default_page": 1
 }

@@ -1,4 +1,4 @@
-import Services from './services'
+import { getAccounts } from './services'
 import axios from "../plugins/axios";
 
 export default {
@@ -40,7 +40,7 @@ export default {
       return res
     } catch (e) {
       if (e.response.status === 401) {
-        throw new Error('来错地方了')
+        throw new Error('错误')
       }
     }
   },
@@ -52,5 +52,51 @@ export default {
 
     commit('SET_USER', null)
     return res
+  },
+
+  async getAccounts({
+    commit
+  }, {
+    page,
+    limit,
+    header,
+  }) {
+    try {
+      console.log('headerheaderheader')
+      console.log(header)
+      let res = await getAccounts(page, limit, header)
+
+      // if (res.success) commit('SET_ACCOUNT', res.data)
+
+      return res
+    } catch (e) {
+      if (e.response.status === 401) {
+        throw new Error('错误')
+      }
+    }
+  },
+
+  async createAccount({
+    commit
+  }, {
+    name,
+    AppID,
+    AppSecret,
+  }) {
+    try {
+      let res = await axios.post('/api/account', {
+        name,
+        AppID,
+        AppSecret,
+      })
+
+      if (res.success) commit('SET_ACCOUNT', res.data)
+
+      return res
+    } catch (e) {
+      if (e.response.status === 401) {
+        throw new Error('错误')
+      }
+    }
   },
 }

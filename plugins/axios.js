@@ -3,7 +3,7 @@ import qs from 'qs'
 
 const axios = originAxios.create({
   // baseURL: 'https://cnodejs.org/api/v1',
-  baseURL: '/',
+  baseURL: 'http://127.0.0.1:3003',
   headers: {
     // post: {
     //   'Content-Type': 'application/x-www-form-urlencoded'

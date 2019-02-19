@@ -7,6 +7,8 @@ const createStore = () => {
   return new Vuex.Store({
     state: {
       user: null,
+      accountList: [],
+      account: null,
     },
     getters,
     actions,

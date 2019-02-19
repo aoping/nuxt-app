@@ -26,7 +26,8 @@
     "lodash": "^4.17.11",
     "mongoose": "^5.4.13",
     "nuxt": "^2.4.0",
-    "path": "^0.12.7"
+    "path": "^0.12.7",
+    "qs": "^6.6.0"
   },
   "devDependencies": {
     "nodemon": "^1.18.9",
