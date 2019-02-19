@@ -1,5 +1,6 @@
 import { getAccounts } from './services'
 import axios from "../plugins/axios";
+import _ from 'lodash'
 
 export default {
   nuxtServerInit({
@@ -62,11 +63,9 @@ export default {
     header,
   }) {
     try {
-      console.log('headerheaderheader')
-      console.log(header)
       let res = await getAccounts(page, limit, header)
 
-      // if (res.success) commit('SET_ACCOUNT', res.data)
+      if (res.success) commit('SET_ACCOUNTLIST', res.data)
 
       return res
     } catch (e) {
@@ -77,7 +76,8 @@ export default {
   },
 
   async createAccount({
-    commit
+    commit,
+    state
   }, {
     name,
     AppID,
@@ -91,7 +91,33 @@ export default {
       })
 
       if (res.success) commit('SET_ACCOUNT', res.data)
+      let accountList = [...state.accountList]
+      accountList.unshift(res.data)
+      commit('SET_ACCOUNTLIST', accountList)
+      return res
+    } catch (e) {
+      if (e.response.status === 401) {
+        throw new Error('错误')
+      }
+    }
+  },
 
+  async editAccount({
+    commit,
+    state
+  }, account) {
+    console.log('account2222')
+    console.log(account)
+    try {
+      let res = await axios.put('/api/account', {
+        ...account
+      })
+
+      if (res.success) commit('SET_ACCOUNT', res.data)
+      let accountList = [...state.accountList]
+      let index = accountList.findIndex(item => item.id === res.data.id)
+      accountList.splice(index, 1, res.data)
+      commit('SET_ACCOUNTLIST', accountList)
       return res
     } catch (e) {
       if (e.response.status === 401) {

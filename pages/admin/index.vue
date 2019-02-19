@@ -1,26 +1,26 @@
 <template>
    <div>
     <a-button class="editable-add-btn" @click="handleAdd">添加公众号</a-button>
-    <a-table bordered :dataSource="dataSource" :columns="columns">
+    <a-table bordered :dataSource="accountList" :columns="columns">
       <template slot="operation" slot-scope="text, record">
         <span>
-          <a @click="() => edit(record.key)">Edit</a>
+          <a @click="() => handleEdit(record)">Edit</a>
         </span>
         <a-divider type="vertical" />
         <a-popconfirm
-          v-if="dataSource.length"
+          v-if="accountList.length"
           title="Sure to delete?"
           @confirm="() => onDelete(record.key)">
           <a href="javascript:;">Delete</a>
         </a-popconfirm>
       </template>
     </a-table>
-    <editAccount :visible="visible" @onSubmit="onSubmit" @onClose="onClose"></editAccount>
+    <editAccount v-if="visible" :visible="visible" @onSubmit="onSubmit" @onClose="onClose"></editAccount>
   </div>
 </template>
 
 <script>
-import { mapState, mapActions } from 'vuex'
+import { mapState, mapActions, mapMutations } from 'vuex'
 import editAccount from '@/components/editAccount'
 import config from '@/config'
 export default {
@@ -34,17 +34,16 @@ export default {
       }
       } : {}
     const res = await store.dispatch('getAccounts', {page, limit, header})
-    return { dataSource: res.data }
+    // return { accountList: res.data }
   },
   computed: {
-    ...mapState(['user'])
+    ...mapState(['user', 'accountList'])
   },
   components: {
     editAccount
   },
   data () {
     return {
-      dataSource: [],
       count: 2,
       columns: [{
         title: '公众号',
@@ -66,11 +65,17 @@ export default {
   },
   methods: {
     ...mapActions(['getAccounts']),
+    ...mapMutations(['SET_ACCOUNT']),
     onDelete (key) {
-      const dataSource = [...this.dataSource]
-      this.dataSource = dataSource.filter(item => item.key !== key)
+      const accountList = [...this.accountList]
+      this.accountList = accountList.filter(item => item.key !== key)
     },
-    handleAdd () {
+    handleAdd (record) {
+      this.SET_ACCOUNT(null)
+      this.visible = true
+    },
+    handleEdit (record) {
+      this.SET_ACCOUNT(record)
       this.visible = true
     },
     onClose() {

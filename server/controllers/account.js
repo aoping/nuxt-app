@@ -48,7 +48,7 @@ module.exports.create = async (ctx, next) => {
     let data = await account.save()
     return ctx.body = {
       success: true,
-      data: _.pick(data, ['name', 'AppID', 'AppSecret', 'actived'])
+      data: data
     }
   } else {
     return ctx.body = {
@@ -58,3 +58,42 @@ module.exports.create = async (ctx, next) => {
   }
 }
 
+module.exports.edit = async (ctx, next) => {
+  const {
+    _id,
+    name,
+    AppID,
+    AppSecret,
+  } = ctx.request.body
+  ctx.checkBody('name').notEmpty();
+  ctx.checkBody('AppID').notEmpty();
+  ctx.checkBody('AppSecret').notEmpty();
+
+  if (ctx.errors) {
+    const err = JSON.stringify(ctx.errors[0])
+    ctx.body = {
+      success: false,
+      err
+    };
+    return;
+  }
+
+  let res = await Account.findOne({
+    _id
+  }).exec()
+
+  let data = await Account.findByIdAndUpdate(_id,
+    {
+      $set: {
+      name,
+      AppID,
+      AppSecret
+    }
+    }, { new: true });
+
+  console.log(res)
+  return ctx.body = {
+    success: true,
+    data
+  }
+}

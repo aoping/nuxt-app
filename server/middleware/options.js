@@ -4,8 +4,6 @@ const User = mongoose.model('User')
 
 module.exports.login_required  = () => {
   return async function (ctx, next) {
-    console.log('ctx.session')
-    console.log(ctx.session)
     if (!ctx.session || !ctx.session.user) {
       ctx.status = 401;
       ctx.body = {

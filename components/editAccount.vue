@@ -15,7 +15,8 @@
               rules: [{
                 required: true, message: 'Please input your account!',
               }],
-            }
+              initialValue: account&&account.name
+            },
           ]"
         />
       </a-form-item>
@@ -27,6 +28,7 @@
               rules: [{
                 required: true, message: 'Please input your password!',
               }],
+              initialValue:account&&account.AppID
             }
           ]"
         />
@@ -39,6 +41,7 @@
               rules: [{
                 required: true, message: 'Please input your password!',
               }],
+              initialValue: account&&account.AppSecret
             }
           ]"
         />
@@ -51,7 +54,7 @@
 </template>
 
 <script>
-import {mapActions} from 'vuex'
+import {mapState,mapActions} from 'vuex'
 export default {
   props: ['visible'],
   data() {
@@ -59,22 +62,36 @@ export default {
     }
   },
   components: {},
+  computed:{
+    ...mapState(['account'])
+  },
   beforeCreate() {
     this.form = this.$form.createForm(this);
   },
   methods: {
-    ...mapActions(['createAccount']),
+    ...mapActions(['createAccount', 'editAccount']),
     handleSubmit(e) {
       e.preventDefault();
       this.form.validateFieldsAndScroll(async (err, values) => {
         console.log(values)
         if (!err) {
-          let res = await this.createAccount(values)
-          if (res.success) {
-            this.$emit('onClose')
-          } else {
-            this.$message.error(res.err)
-            this.$emit('onClose')
+          if (!this.account) {
+            let res = await this.createAccount(values)
+            if (res.success) {
+              this.$emit('onClose')
+            } else {
+              this.$message.error(res.err)
+              this.$emit('onClose')
+            }
+          } else{
+            values = Object.assign({}, this.account, values)
+            let res = await this.editAccount(values)
+            if (res.success) {
+              this.$emit('onClose')
+            } else {
+              this.$message.error(res.err)
+              this.$emit('onClose')
+            }
           }
         }
       });

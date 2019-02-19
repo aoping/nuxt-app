@@ -8,4 +8,5 @@ module.exports = function apiRouter(router) {
   router.post('/api/logout', apiController.logout)
   router.get('/api/accounts', middleware.login_required(), middleware.pagination(), accountController.list)
   router.post('/api/account', middleware.login_required(), accountController.create)
+  router.put('/api/account', middleware.login_required(), accountController.edit)
 }
