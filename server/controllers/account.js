@@ -65,6 +65,7 @@ module.exports.edit = async (ctx, next) => {
     AppID,
     AppSecret,
   } = ctx.request.body
+  ctx.checkBody('_id').notEmpty();
   ctx.checkBody('name').notEmpty();
   ctx.checkBody('AppID').notEmpty();
   ctx.checkBody('AppSecret').notEmpty();
@@ -78,10 +79,6 @@ module.exports.edit = async (ctx, next) => {
     return;
   }
 
-  let res = await Account.findOne({
-    _id
-  }).exec()
-
   let data = await Account.findByIdAndUpdate(_id,
     {
       $set: {
@@ -91,9 +88,47 @@ module.exports.edit = async (ctx, next) => {
     }
     }, { new: true });
 
-  console.log(res)
   return ctx.body = {
     success: true,
     data
   }
+}
+
+module.exports.del = async (ctx, next) => {
+  const {
+    id,
+  } = ctx.params
+  ctx.checkParams('id').notEmpty();
+
+  if (ctx.errors) {
+    const err = JSON.stringify(ctx.errors[0])
+    ctx.body = {
+      success: false,
+      err
+    };
+    return;
+  }
+
+  let data = await Account.findOne({
+    _id: id
+  }).exec()
+  if (data) {
+    try {
+      await data.remove()
+      ctx.body = {
+        success: true,
+      }
+    } catch (e) {
+      ctx.body = {
+        success: false,
+        err: '内部错误'
+      }
+    }
+  } else{
+    ctx.body = {
+      success: false,
+      err: '不存在'
+    }
+  }
+
 }

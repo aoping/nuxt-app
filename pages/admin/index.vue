@@ -10,7 +10,7 @@
         <a-popconfirm
           v-if="accountList.length"
           title="Sure to delete?"
-          @confirm="() => onDelete(record.key)">
+          @confirm="() => onDelete(record._id)">
           <a href="javascript:;">Delete</a>
         </a-popconfirm>
       </template>
@@ -64,11 +64,10 @@ export default {
     }
   },
   methods: {
-    ...mapActions(['getAccounts']),
+    ...mapActions(['getAccounts', 'delAccount']),
     ...mapMutations(['SET_ACCOUNT']),
-    onDelete (key) {
-      const accountList = [...this.accountList]
-      this.accountList = accountList.filter(item => item.key !== key)
+    onDelete (id) {
+      this.delAccount(id)
     },
     handleAdd (record) {
       this.SET_ACCOUNT(null)

@@ -106,8 +106,6 @@ export default {
     commit,
     state
   }, account) {
-    console.log('account2222')
-    console.log(account)
     try {
       let res = await axios.put('/api/account', {
         ...account
@@ -119,6 +117,25 @@ export default {
       accountList.splice(index, 1, res.data)
       commit('SET_ACCOUNTLIST', accountList)
       return res
+    } catch (e) {
+      if (e.response.status === 401) {
+        throw new Error('错误')
+      }
+    }
+  },
+
+  async delAccount({
+    commit,
+    state
+  }, accountid) {
+    try {
+      let res = await axios.delete('/api/account/' + accountid)
+      if (res.success) {
+        let accountList = [...state.accountList]
+        let index = accountList.findIndex(item => item._id === accountid)
+        accountList.splice(index, 1)
+        commit('SET_ACCOUNTLIST', accountList)
+      }
     } catch (e) {
       if (e.response.status === 401) {
         throw new Error('错误')
