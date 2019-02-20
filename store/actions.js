@@ -80,14 +80,14 @@ export default {
     state
   }, {
     name,
-    AppID,
-    AppSecret,
+    appID,
+    appSecret,
   }) {
     try {
       let res = await axios.post('/api/account', {
         name,
-        AppID,
-        AppSecret,
+        appID,
+        appSecret,
       })
 
       if (res.success) commit('SET_ACCOUNT', res.data)

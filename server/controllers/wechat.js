@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
 const User = mongoose.model('User')
 const dbHelp = require('../database/dbHelp')
-const wechatLib = require('../lib/wechat-lib')
+const wechatMiddleware = require('../middleware/wechat')
 const config = require('../config')
 // const reply = require('../config')
 
@@ -16,7 +16,7 @@ module.exports.hear = async (ctx, next) => {
     return;
   }
 
-  const middle = wechatLib.hear(wechatLib.reply)
+  const middle = wechatMiddleware.hear()
   const body = await middle(ctx, next)
   return ctx.body = ctx.body
 }

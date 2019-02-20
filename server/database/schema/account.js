@@ -7,8 +7,8 @@ const ObjectId = Schema.Types.ObjectId
 
 const AccountSchema = new Schema({
   name: String,
-  AppID: String,
-  AppSecret: String,
+  appID: String,
+  appSecret: String,
   token: String,
   user: {
     type: ObjectId,

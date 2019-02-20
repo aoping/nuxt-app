@@ -20,28 +20,28 @@
           ]"
         />
       </a-form-item>
-      <a-form-item label="AppID">
+      <a-form-item label="appID">
         <a-input
           v-decorator="[
-            'AppID',
+            'appID',
             {
               rules: [{
                 required: true, message: 'Please input your password!',
               }],
-              initialValue:account&&account.AppID
+              initialValue:account&&account.appID
             }
           ]"
         />
       </a-form-item>
-      <a-form-item label="AppSecret">
+      <a-form-item label="appSecret">
         <a-input
           v-decorator="[
-            'AppSecret',
+            'appSecret',
             {
               rules: [{
                 required: true, message: 'Please input your password!',
               }],
-              initialValue: account&&account.AppSecret
+              initialValue: account&&account.appSecret
             }
           ]"
         />

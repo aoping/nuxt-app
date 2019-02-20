@@ -50,11 +50,11 @@ export default {
         dataIndex: 'name',
         width: '20%',
       }, {
-        title: 'AppID',
-        dataIndex: 'AppID',
+        title: 'appID',
+        dataIndex: 'appID',
       }, {
-        title: 'AppSecret',
-        dataIndex: 'AppSecret',
+        title: 'appSecret',
+        dataIndex: 'appSecret',
       },{
         title: 'token',
         dataIndex: 'token',

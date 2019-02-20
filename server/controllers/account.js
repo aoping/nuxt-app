@@ -17,13 +17,13 @@ module.exports.list = async (ctx, next) => {
 module.exports.create = async (ctx, next) => {
   const {
     name,
-    AppID,
-    AppSecret
+    appID,
+    appSecret
   } = ctx.request.body
 
   ctx.checkBody('name').notEmpty();
-  ctx.checkBody('AppID').notEmpty();
-  ctx.checkBody('AppSecret').notEmpty();
+  ctx.checkBody('appID').notEmpty();
+  ctx.checkBody('appSecret').notEmpty();
 
   if (ctx.errors) {
     const err = JSON.stringify(ctx.errors[0])
@@ -35,15 +35,15 @@ module.exports.create = async (ctx, next) => {
   }
 
   let account = await Account.findOne({
-    AppID
+    appID
   }).exec()
 
   if (!account) {
     account = new Account({
       user: ctx.session.user._id,
       name,
-      AppID,
-      AppSecret
+      appID,
+      appSecret
     })
 
     let data = await account.save()
@@ -63,13 +63,13 @@ module.exports.edit = async (ctx, next) => {
   const {
     _id,
     name,
-    AppID,
-    AppSecret,
+    appID,
+    appSecret,
   } = ctx.request.body
   ctx.checkBody('_id').notEmpty();
   ctx.checkBody('name').notEmpty();
-  ctx.checkBody('AppID').notEmpty();
-  ctx.checkBody('AppSecret').notEmpty();
+  ctx.checkBody('appID').notEmpty();
+  ctx.checkBody('appSecret').notEmpty();
 
   if (ctx.errors) {
     const err = JSON.stringify(ctx.errors[0])
@@ -84,8 +84,8 @@ module.exports.edit = async (ctx, next) => {
     {
       $set: {
       name,
-      AppID,
-      AppSecret
+      appID,
+      appSecret
     }
     }, { new: true });
 
