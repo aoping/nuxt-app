@@ -1,4 +1,4 @@
-import { getAccounts } from './services'
+import { getAccounts, getTopics } from './services'
 import axios from "../plugins/axios";
 import _ from 'lodash'
 
@@ -135,6 +135,97 @@ export default {
         let index = accountList.findIndex(item => item._id === accountid)
         accountList.splice(index, 1)
         commit('SET_ACCOUNTLIST', accountList)
+      }
+    } catch (e) {
+      if (e.response.status === 401) {
+        throw new Error('错误')
+      }
+    }
+  },
+
+  // 文章
+  async getTopics({
+    commit
+  }, {
+    page,
+    limit,
+    header,
+  }) {
+    try {
+      let res = await getTopics(page, limit, header)
+
+      if (res.success) commit('SET_TOPICLIST', res.data)
+
+      return res
+    } catch (e) {
+      if (e.response.status === 401) {
+        throw new Error('错误')
+      }
+    }
+  },
+
+  async createTopic({
+    commit,
+    state
+  }, {
+    title,
+    content,
+    author,
+    account
+  }) {
+    try {
+      let res = await axios.post('/api/topic', {
+        title,
+        content,
+        author,
+        account
+      })
+
+      if (res.success) commit('SET_TOPIC', res.data)
+      let topicList = [...state.topicList]
+      topicList.unshift(res.data)
+      commit('SET_TOPICLIST', topicList)
+      return res
+    } catch (e) {
+      if (e.response.status === 401) {
+        throw new Error('错误')
+      }
+    }
+  },
+
+  async editTopic({
+    commit,
+    state
+  }, topic) {
+    try {
+      let res = await axios.put('/api/topic', {
+        ...topic
+      })
+
+      if (res.success) commit('SET_TOPIC', res.data)
+      let topicList = [...state.topicList]
+      let index = topicList.findIndex(item => item.id === res.data.id)
+      topicList.splice(index, 1, res.data)
+      commit('SET_TOPICLIST', topicList)
+      return res
+    } catch (e) {
+      if (e.response.status === 401) {
+        throw new Error('错误')
+      }
+    }
+  },
+
+  async delTopic({
+    commit,
+    state
+  }, topicid) {
+    try {
+      let res = await axios.delete('/api/topic/' + topicid)
+      if (res.success) {
+        let topicList = [...state.topicList]
+        let index = topicList.findIndex(item => item._id === topicid)
+        topicList.splice(index, 1)
+        commit('SET_TOPICLIST', topicList)
       }
     } catch (e) {
       if (e.response.status === 401) {

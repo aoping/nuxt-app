@@ -10,6 +10,13 @@ export default {
     state.account = account
   },
 
+  SET_TOPICLIST: (state, topicList) => {
+    state.topicList = topicList
+  },
+  SET_TOPIC: (state, topic) => {
+    state.topic = topic
+  },
+
   SET_AUTHUSER: (state, authUser) => {
     state.authUser = authUser
   }

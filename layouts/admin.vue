@@ -18,17 +18,17 @@
         </svg>
       </p>
       <a-menu theme="dark" mode="inline" :defaultSelectedKeys="['1']">
+        <a-menu-item key="0">
+          <nuxt-link to="/admin">
+            <a-icon type="user" />
+            <span>公众号</span>
+          </nuxt-link>
+        </a-menu-item>
         <a-menu-item key="1">
-          <a-icon type="user" />
-          <span>公众号</span>
-        </a-menu-item>
-        <a-menu-item key="2">
-          <a-icon type="video-camera" />
-          <span>文章</span>
-        </a-menu-item>
-        <a-menu-item key="3">
-          <a-icon type="upload" />
-          <span>nav 3</span>
+          <nuxt-link to="/admin/topic">
+            <a-icon type="book" />
+            <span>文章</span>
+          </nuxt-link>
         </a-menu-item>
       </a-menu>
     </a-layout-sider>

@@ -9,6 +9,8 @@ const createStore = () => {
       user: null,
       accountList: [],
       account: null,
+      topicList: [],
+      topic: null,
     },
     getters,
     actions,
