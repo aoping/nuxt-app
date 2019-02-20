@@ -20,19 +20,6 @@
           ]"
         />
       </a-form-item>
-      <a-form-item label="content">
-        <a-input
-          v-decorator="[
-            'content',
-            {
-              rules: [{
-                required: true, message: 'Please input your content!',
-              }],
-              initialValue:topic&&topic.content
-            }
-          ]"
-        />
-      </a-form-item>
       <a-form-item label="author">
         <a-input
           v-decorator="[
@@ -61,6 +48,19 @@
           <a-select-option value=''>请选择</a-select-option>
           <a-select-option v-for="item in accounts" :value="item._id" :key="item._id">{{item.name}}</a-select-option>
         </a-select>
+      </a-form-item>
+      <a-form-item label="content">
+        <a-textarea
+          v-decorator="[
+            'content',
+            {
+              rules: [{
+                required: true, message: 'Please input your content!',
+              }],
+              initialValue:topic&&topic.content
+            }
+          ]"
+        />
       </a-form-item>
       <a-form-item>
         <a-button type="primary" html-type="submit">保存</a-button>
