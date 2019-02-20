@@ -2,7 +2,9 @@ export default {
   SET_USER: (state, user) => {
     state.user = user
   },
-
+  SET_SELECTEDMENUKEY: (state, selectedMenuKey) => {
+    state.selectedMenuKey = selectedMenuKey
+  },
   SET_ACCOUNTLIST: (state, accountList) => {
     state.accountList = accountList
   },

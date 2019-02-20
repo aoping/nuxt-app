@@ -6,7 +6,8 @@ export default {
   nuxtServerInit({
     commit
   }, {
-    req
+    req,
+    route
   }) {
     if (req.session && req.session.user) {
       const {
@@ -22,6 +23,7 @@ export default {
 
       commit('SET_USER', user)
     }
+    commit('SET_SELECTEDMENUKEY', route.path)
   },
 
   async login({

@@ -17,14 +17,14 @@
           <path d="M693.678 495.484m-33.032 0a33.032 33.032 0 1 0 66.064 0 33.032 33.032 0 1 0-66.064 0Z" fill="#464655" p-id="1150" />
         </svg>
       </p>
-      <a-menu theme="dark" mode="inline" :defaultSelectedKeys="['1']">
-        <a-menu-item key="0">
+      <a-menu theme="dark" mode="inline" :defaultSelectedKeys="[selectedMenuKey]">
+        <a-menu-item key="/admin">
           <nuxt-link to="/admin">
             <a-icon type="user" />
             <span>公众号</span>
           </nuxt-link>
         </a-menu-item>
-        <a-menu-item key="1">
+        <a-menu-item key="/admin/topic">
           <nuxt-link to="/admin/topic">
             <a-icon type="book" />
             <span>文章</span>
@@ -69,7 +69,7 @@ export default {
     }
   },
   computed: {
-    ...mapState(['user'])
+    ...mapState(['user', 'selectedMenuKey'])
   },
   methods:{
     ...mapActions([
