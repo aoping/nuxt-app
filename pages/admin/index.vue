@@ -1,14 +1,14 @@
 <template>
    <div>
     <a-button class="editable-add-btn" @click="handleAdd">添加公众号</a-button>
-    <a-table bordered :dataSource="accountList" :columns="columns">
+    <a-table bordered :dataSource="accounts" :columns="columns">
       <template slot="operation" slot-scope="text, record">
         <span>
           <a @click="() => handleEdit(record)">Edit</a>
         </span>
         <a-divider type="vertical" />
         <a-popconfirm
-          v-if="accountList.length"
+          v-if="accounts.length"
           title="Sure to delete?"
           @confirm="() => onDelete(record._id)">
           <a href="javascript:;">Delete</a>
@@ -20,7 +20,7 @@
 </template>
 
 <script>
-import { mapState, mapActions, mapMutations } from 'vuex'
+import { mapState, mapActions, mapMutations, mapGetters } from 'vuex'
 import editAccount from '@/components/editAccount'
 import config from '@/config'
 export default {
@@ -34,10 +34,10 @@ export default {
       }
       } : {}
     const res = await store.dispatch('getAccounts', {page, limit, header})
-    // return { accountList: res.data }
   },
   computed: {
-    ...mapState(['user', 'accountList'])
+    ...mapState(['user', 'accountList']),
+    ...mapGetters(['accounts'])
   },
   components: {
     editAccount
@@ -48,15 +48,24 @@ export default {
       columns: [{
         title: '公众号',
         dataIndex: 'name',
-        width: '30%',
+        width: '20%',
       }, {
         title: 'AppID',
         dataIndex: 'AppID',
       }, {
         title: 'AppSecret',
         dataIndex: 'AppSecret',
-      }, {
+      },{
+        title: 'token',
+        dataIndex: 'token',
+      },
+      {
+        title: '配置URL',
+        dataIndex: 'hearlink',
+      },
+      {
         title: 'operation',
+        width: '150px',
         dataIndex: 'operation',
         scopedSlots: { customRender: 'operation' },
       }],

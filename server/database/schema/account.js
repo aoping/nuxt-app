@@ -1,4 +1,7 @@
 const mongoose = require('mongoose')
+const random = require('string-random')
+const config = require('../../config')
+
 
 const Schema = mongoose.Schema
 
@@ -6,6 +9,7 @@ const AccountSchema = new Schema({
   name: String,
   AppID: String,
   AppSecret: String,
+  token: String,
   actived: {
     type: Boolean,
     default: true,
@@ -25,6 +29,7 @@ const AccountSchema = new Schema({
 
 AccountSchema.pre('save', function (next) {
   if (this.isNew) {
+    this.token = config.wxaccount_token_prefix + random(16)
     this.meta.createdAt = this.meta.updatedAt = Date.now()
   } else {
     this.meta.updatedAt = Date.now()

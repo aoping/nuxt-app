@@ -1,10 +1,17 @@
 const sha1 = require('sha1')
 const getRawBody = require('raw-body')
 const util = require('./util')
+const dbHelp = require('../../database/dbHelp')
 
-module.exports = function hear (opts, reply) {
+module.exports = function hear (reply) {
   return async function wechatMiddle(ctx, next) {
-    const token = opts.token
+    let account = await dbHelp.accountHelp.getAccount({
+      _id: ctx.params.id
+    })
+    if (!account) return ctx.body = 'Failed'
+
+    const token = account.token
+
     const {
       signature,
       nonce,

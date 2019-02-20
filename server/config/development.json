@@ -12,5 +12,6 @@
     "SK": "wcgqiwkL7QaX5Bz8OtyJEfLuAFb_qCrqFg_eNbW0"
   },
   "default_limit": 20,
-  "default_page": 1
+  "default_page": 1,
+  "wxaccount_token_prefix": "NUXTAPP"
 }
