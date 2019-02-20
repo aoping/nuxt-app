@@ -1,14 +1,14 @@
 <template>
    <div>
     <a-button class="editable-add-btn" @click="handleAdd">添加文章</a-button>
-    <a-table bordered :dataSource="topicList" :columns="columns">
+    <a-table bordered :dataSource="topics" :columns="columns">
       <template slot="operation" slot-scope="text, record">
         <span>
           <a @click="() => handleEdit(record)">Edit</a>
         </span>
         <a-divider type="vertical" />
         <a-popconfirm
-          v-if="topicList.length"
+          v-if="topics.length"
           title="Sure to delete?"
           @confirm="() => onDelete(record._id)">
           <a href="javascript:;">Delete</a>
@@ -38,7 +38,7 @@ export default {
   },
   computed: {
     ...mapState(['user', 'topicList']),
-    // ...mapGetters(['topicList'])
+    ...mapGetters(['topics'])
   },
   components: {
     editTopic

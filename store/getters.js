@@ -2,14 +2,16 @@ const R = require('ramda');
 import config from '@/config'
 export const accounts = state => {
   let res = []
-  state.accountList && state.accountList.map(item => {
-    res.push(Object.assign({}, item , {hearlink: `${config.hearlink}/${item._id}`}))
+  state.accountList && state.accountList.map((item, index) => {
+    res.push(Object.assign({}, item , {hearlink: `${config.hearlink}/${item._id}`, key: index}))
   })
   return res
-  // const f = R.compose(
-  //   R.forEach(item => item.hearlink = `${config.hearlink}/${item._id}`),
-  //   R.filter(item=>item.actived)
-  // )
-  // return f(state.accountList)
-  // return state.accountList
+}
+
+export const topics = state => {
+  let res = []
+  state.topicList && state.topicList.map((item, index) => {
+    res.push(Object.assign({}, item , {key: index}))
+  })
+  return res
 }
