@@ -2,7 +2,7 @@ const sha1 = require('sha1')
 const xml2js = require('xml2js')
 const template = require('./tpl')
 
-module.exports.parseXML = function parseXML (xml) {
+module.exports.parseXML = function (xml) {
   return new Promise((resolve, reject) => {
     xml2js.parseString(xml, {trim: true}, (err, content) => {
       if (err) reject(err)
@@ -11,7 +11,7 @@ module.exports.parseXML = function parseXML (xml) {
   })
 }
 
-module.exports.formatMessage = function formatMessage (result) {
+module.exports.formatMessage = function (result) {
   let message = {}
 
   if (typeof result === 'object') {
@@ -46,7 +46,7 @@ module.exports.formatMessage = function formatMessage (result) {
   return message
 }
 
-module.exports.tpl = function tpl (content, message) {
+module.exports.tpl = function (content, message) {
   let type = 'text'
 
   if (Array.isArray(content)) {
@@ -111,7 +111,7 @@ function signIt (nonce, ticket, timestamp, url) {
   return sha
 }
 
-module.exports.sign = function sign (ticket, url) {
+module.exports.sign = function (ticket, url) {
   const nonce = createNonce()
   const timestamp = createTimestamp()
   const signature = signIt(nonce, ticket, timestamp, url)

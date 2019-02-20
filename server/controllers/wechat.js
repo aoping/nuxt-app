@@ -5,10 +5,8 @@ const wechatLib = require('../lib/wechat-lib')
 const config = require('../config')
 // const reply = require('../config')
 
-console.log('wechatLib')
-console.log(wechatLib)
 module.exports.hear = async (ctx, next) => {
-  const middle = wechatLib.hear(config.wechat)
+  const middle = wechatLib.hear(config.wechat, wechatLib.reply)
   const body = await middle(ctx, next)
   return ctx.body = ctx.body
 }
