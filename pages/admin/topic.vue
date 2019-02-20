@@ -77,7 +77,7 @@ export default {
       this.delTopic(id)
     },
     handleAdd (record) {
-      // this.SET_TOPIC(null)
+      this.SET_TOPIC(null)
       this.visible = true
     },
     handleEdit (record) {

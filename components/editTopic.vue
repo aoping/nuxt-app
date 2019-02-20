@@ -50,7 +50,12 @@
         <a-select
           v-decorator="[
             'account',
-            { initialValue: topic&&topic.account || '' }
+            {
+              rules: [{
+                required: true, message: 'Please select your account!',
+              }],
+              initialValue: topic&&topic.account || ''
+            }
           ]"
         >
           <a-select-option value=''>请选择</a-select-option>
