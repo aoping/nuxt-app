@@ -33,7 +33,8 @@ export default {
            Cookie: req.headers.cookie
       }
       } : {}
-    const res = await store.dispatch('getTopics', {page, limit, header})
+    await store.dispatch('getTopics', {page, limit, header})
+    await store.dispatch('getAccounts', {page:1, limit:100, header})
   },
   computed: {
     ...mapState(['user', 'topicList']),
