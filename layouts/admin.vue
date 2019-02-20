@@ -1,5 +1,5 @@
 <template>
-<a-layout id="components-layout-demo-custom-trigger">
+<a-layout>
     <a-layout-sider
       :trigger="null"
       collapsible
