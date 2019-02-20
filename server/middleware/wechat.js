@@ -29,7 +29,7 @@ module.exports.hear = function () {
       const content = await util.parseXML(data)
       const message = util.formatMessage(content.xml)
 
-      const body = await reply(message)
+      const body = await reply(message, wechatLib)
 
       const xml = util.tpl(body, message)
 
@@ -44,7 +44,7 @@ const tip = '我的卡丽熙，欢迎来到河间地\n' +
   '点击 <a href="http://coding.imooc.com">一起搞事情吧</a>'
 
 
-async function reply (message) {
+async function reply (message, wechatLib) {
     if (message.MsgType === 'event') {
     if (message.Event === 'subscribe') {
       return tip
@@ -58,6 +58,13 @@ async function reply (message) {
       return message.Count + ' photos sent'
     }
   } else if (message.MsgType === 'text') {
+    if (message.Content === 'menu') {
+      const menu = require('./menu')
+      await wechatLib.handle('delMenu')
+      const menuData = await wechatLib.handle('createMenu', menu)
+
+      console.log(menuData)
+    }
     return message.Content
   } else if (message.MsgType === 'image') {
     return {

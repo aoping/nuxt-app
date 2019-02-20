@@ -126,4 +126,56 @@ module.exports = class WechatLib {
     return data
   }
 
+  async handle (operation, ...args) {
+    const tokenData = await this.fetchAccessToken()
+    const options = this[operation](tokenData.token, ...args)
+    const data = await this.request(options)
+    console.log('createMenu')
+    console.log(data)
+    return data
+  }
+
+  createMenu (token, menu) {
+    const url = api.menu.create + 'access_token=' + token
+
+    return {method: 'POST', url: url, body: menu}
+  }
+
+  getMenu (token) {
+    const url = api.menu.get + 'access_token=' + token
+
+    return {url: url}
+  }
+
+  delMenu (token) {
+    const url = api.menu.del + 'access_token=' + token
+
+    return {url: url}
+  }
+
+  addConditionMenu (token, menu, rule) {
+    const url = api.menu.addCondition + 'access_token=' + token
+    const form = {
+      button: menu,
+      matchrule: rule
+    }
+
+    return {method: 'POST', url: url, body: form}
+  }
+
+  delConditionMenu (token, menuId) {
+    const url = api.menu.delCondition + 'access_token=' + token
+    const form = {
+      menuid: menuId
+    }
+
+    return {method: 'POST', url: url, body: form}
+  }
+
+  getCurrentMenuInfo (token) {
+    const url = api.menu.getInfo + 'access_token=' + token
+
+    return {url: url}
+  }
+
 }
