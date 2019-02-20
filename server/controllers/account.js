@@ -4,7 +4,7 @@ const dbHelp = require('../database/dbHelp')
 const _ = require('lodash')
 
 module.exports.list = async (ctx, next) => {
-  const data = await dbHelp.accountHelp.getAccounts({}, Object.assign({
+  const data = await dbHelp.accountHelp.getAccounts({user: ctx.session.user._id}, Object.assign({
     sort: '-meta.updatedAt'
   }, ctx.pagination))
   ctx.body = {
@@ -40,6 +40,7 @@ module.exports.create = async (ctx, next) => {
 
   if (!account) {
     account = new Account({
+      user: ctx.session.user._id,
       name,
       AppID,
       AppSecret

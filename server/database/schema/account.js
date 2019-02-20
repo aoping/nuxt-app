@@ -2,14 +2,18 @@ const mongoose = require('mongoose')
 const random = require('string-random')
 const config = require('../../config')
 
-
 const Schema = mongoose.Schema
+const ObjectId = Schema.Types.ObjectId
 
 const AccountSchema = new Schema({
   name: String,
   AppID: String,
   AppSecret: String,
   token: String,
+  user: {
+    type: ObjectId,
+    ref: 'User'
+  },
   actived: {
     type: Boolean,
     default: true,
