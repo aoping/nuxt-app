@@ -25,6 +25,7 @@
     "koa-session": "^5.10.1",
     "koa-validate": "^1.0.7",
     "lodash": "^4.17.11",
+    "moment": "^2.24.0",
     "mongoose": "^5.4.13",
     "nuxt": "^2.4.0",
     "path": "^0.12.7",

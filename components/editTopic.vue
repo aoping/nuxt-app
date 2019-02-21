@@ -1,7 +1,7 @@
 <template>
   <a-drawer
       title="Multi-level drawer"
-      width=520
+      width=1000
       :closable="false"
       @close="onClose"
       :visible="visible"

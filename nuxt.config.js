@@ -51,6 +51,7 @@ module.exports = {
    */
   plugins: [
     '@/plugins/antd-ui',
+    '@/plugins/filters',
     { src: '~plugins/nuxt-quill-plugin.js', ssr: false }
   ],
 

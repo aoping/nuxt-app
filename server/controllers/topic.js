@@ -17,13 +17,14 @@ module.exports.get = async (ctx, next) => {
   const {
     id,
   } = ctx.params
-  let data = await Topic.findOne({
-    _id: id
-  }).exec()
-  if (data) {
+  let [topic, account] = await dbHelp.topicHelp.getTopic({_id:id})
+  topic = _.pick(topic, ['id', 'title', 'content', 'author', 'user', 'account',
+    'meta', 'accountName'])
+  topic.accountName = account.name
+  if (topic) {
     ctx.body = {
       success: true,
-      data
+      data: topic
     }
   } else{
     ctx.body = {

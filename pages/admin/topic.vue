@@ -1,5 +1,5 @@
 <template>
-   <div>
+   <div class="content">
     <a-button class="editable-add-btn" @click="handleAdd">添加文章</a-button>
     <a-table bordered :dataSource="topics" :columns="columns">
       <template slot="name" slot-scope="text, record">
@@ -63,8 +63,8 @@ export default {
           dataIndex: 'author',
         },
         {
-          title: 'account',
-          dataIndex: 'account',
+          title: 'accountName',
+          dataIndex: 'accountName',
         },
         {
           title: 'operation',
