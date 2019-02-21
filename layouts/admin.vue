@@ -120,7 +120,6 @@ html {
 
 .ant-layout-content {
   min-height: 120px;
-  line-height: 120px;
 }
 .header-right{
   text-align: right;

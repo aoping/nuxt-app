@@ -1,4 +1,4 @@
-import { getAccounts, getTopics } from './services'
+import { getAccounts, getTopics, getTopic } from './services'
 import axios from "../plugins/axios";
 import _ from 'lodash'
 

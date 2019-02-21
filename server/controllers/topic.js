@@ -13,6 +13,25 @@ module.exports.list = async (ctx, next) => {
   }
 }
 
+module.exports.get = async (ctx, next) => {
+  const {
+    id,
+  } = ctx.params
+  let data = await Topic.findOne({
+    _id: id
+  }).exec()
+  if (data) {
+    ctx.body = {
+      success: true,
+      data
+    }
+  } else{
+    ctx.body = {
+      success: false,
+      err: '不存在'
+    }
+  }
+}
 
 module.exports.create = async (ctx, next) => {
   const {

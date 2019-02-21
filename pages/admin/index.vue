@@ -1,5 +1,5 @@
 <template>
-   <div>
+   <div class="content">
     <a-button class="editable-add-btn" @click="handleAdd">添加公众号</a-button>
     <a-table bordered :dataSource="accounts" :columns="columns">
       <template slot="operation" slot-scope="text, record">
@@ -97,6 +97,9 @@ export default {
 </script>
 
 <style scoped>
+.content{
+  padding-top: 30px;
+}
 .editable-cell {
   position: relative;
 }

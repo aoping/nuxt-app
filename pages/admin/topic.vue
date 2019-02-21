@@ -2,6 +2,11 @@
    <div>
     <a-button class="editable-add-btn" @click="handleAdd">添加文章</a-button>
     <a-table bordered :dataSource="topics" :columns="columns">
+      <template slot="name" slot-scope="text, record">
+        <nuxt-link :to="'/topic/'+record._id" target="_blank">
+          {{text}}
+        </nuxt-link>
+      </template>
       <template slot="operation" slot-scope="text, record">
         <span>
           <a @click="() => handleEdit(record)">Edit</a>
@@ -48,9 +53,10 @@ export default {
       count: 2,
       columns: [
         {
-          title: 'title',
-          dataIndex: 'title',
+          title: 'name',
+          dataIndex: 'name',
           width: '20%',
+          scopedSlots: { customRender: 'name' },
         },
         {
           title: 'author',
@@ -95,6 +101,10 @@ export default {
 </script>
 
 <style scoped>
+.content{
+  padding-top: 30px;
+}
+
 .editable-cell {
   position: relative;
 }

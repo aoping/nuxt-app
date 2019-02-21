@@ -49,19 +49,14 @@
           <a-select-option v-for="item in accounts" :value="item._id" :key="item._id">{{item.name}}</a-select-option>
         </a-select>
       </a-form-item>
-      <a-form-item label="content">
-        <a-textarea
-          v-decorator="[
-            'content',
-            {
-              rules: [{
-                required: true, message: 'Please input your content!',
-              }],
-              initialValue:topic&&topic.content
-            }
-          ]"
-        />
-      </a-form-item>
+      <div label="content">
+        <p>content</p>
+        <div class="quill-editor"
+            :content="content"
+            @change="onEditorChange($event)"
+            v-quill:myQuillEditor="editorOption"
+        ></div>
+      </div>
       <a-form-item>
         <a-button type="primary" html-type="submit">保存</a-button>
       </a-form-item>
@@ -75,6 +70,8 @@ export default {
   props: ['visible'],
   data() {
     return {
+      content: '',
+      editorOption:{}
     }
   },
   components: {},
@@ -85,12 +82,22 @@ export default {
   beforeCreate() {
     this.form = this.$form.createForm(this);
   },
+  mounted() {
+    this.content = this.topic && this.topic.content || ''
+  },
   methods: {
     ...mapActions(['createTopic', 'editTopic']),
+    onEditorChange({ editor, html, text }) {
+      this.content = html
+    },
     handleSubmit(e) {
       e.preventDefault();
+      if (!this.content) {
+        this.$message.error('请输入content')
+        return
+      }
       this.form.validateFieldsAndScroll(async (err, values) => {
-        console.log(values)
+        Object.assign(values, {content: this.content})
         if (!err) {
           if (!this.topic) {
             let res = await this.createTopic(values)
@@ -121,5 +128,9 @@ export default {
 </script>
 
 <style scoped>
-
+ .quill-editor {
+    min-height: 200px;
+    max-height: 400px;
+    overflow-y: auto;
+  }
 </style>
