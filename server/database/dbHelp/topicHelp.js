@@ -22,7 +22,7 @@ module.exports.getTopics = async function (query, opt) {
 
     data = await Promise.all(
       data.map(async topic=>{
-        topic = _.pick(topic, ['id', 'title', 'content', 'author', 'user', 'account',
+        topic = _.pick(topic, ['_id', 'title', 'content', 'author', 'user', 'account',
         'meta', 'accountName'])
         const account = await accountHelp.getAccount({_id: topic.account})
         topic.accountName = account.name

@@ -18,7 +18,7 @@ module.exports.get = async (ctx, next) => {
     id,
   } = ctx.params
   let [topic, account] = await dbHelp.topicHelp.getTopic({_id:id})
-  topic = _.pick(topic, ['id', 'title', 'content', 'author', 'user', 'account',
+  topic = _.pick(topic, ['_id', 'title', 'content', 'author', 'user', 'account',
     'meta', 'accountName'])
   topic.accountName = account.name
   if (topic) {
