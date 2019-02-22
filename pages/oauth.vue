@@ -8,6 +8,7 @@ function getUrlParam (param) {
 }
 
 export default {
+  layout: 'mobile',
   head () {
     return {
       title: `loading`

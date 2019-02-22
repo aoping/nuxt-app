@@ -30,7 +30,7 @@ import wechat from '@/static/mixins/wechat.js'
 
 export default {
   middleware: 'wechat-auth',
-  layout: 'topic',
+  layout: 'mobile',
   mixins: [wechat],
   async asyncData({ params }) {
     const res = await getTopic(params.id)
