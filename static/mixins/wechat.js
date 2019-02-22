@@ -1,9 +1,12 @@
 export default {
   methods: {
     async wechatInit (url) {
+      var vConsole = new VConsole()
+      console.log('wechatInit')
+      console.log(window.location.href)
+      console.log(url)
       const res = await this.$store.dispatch('getWechatSignature', url)
       const { data, success } = res
-
       if (!success) throw new Error('不能成功获取服务器签名！')
       const wx = window.wx
       wx.config({
@@ -14,12 +17,8 @@ export default {
         nonceStr: data.noncestr, // 必填，生成签名的随机串
         signature: data.signature,// 必填，签名，见附录1
         jsApiList: [
-          'previewImage',
-          'hideAllNonBaseMenuItem',
-          'showMenuItems',
-          'updateAppMessageShareData',
-          'updateTimelineShareData',
-          'chooseWXPay'
+          'onMenuShareTimeline',
+          'onMenuShareAppMessage',
         ] // 必填，需要使用的 JS 接口列表，所有JS接口列表见附录2
       })
 
@@ -27,7 +26,7 @@ export default {
         // this.wechtSetMenu()
         // this.wechatShare({})
         // 自定义“分享给朋友”及“分享到QQ”按钮的分享内容
-        wx.updateAppMessageShareData({
+        wx.onMenuShareAppMessage({
             title: 'xxxx', // 分享标题
             desc: 'aaaaaaaaaaa', // 分享描述
             link: 'http://baidu.com', // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
@@ -38,7 +37,7 @@ export default {
         })
 
         // 自定义“分享到朋友圈”及“分享到QQ空间”按钮的分享内容
-        wx.updateTimelineShareData({
+        wx.onMenuShareTimeline({
             title: 'xxxx', // 分享标题
             link: 'http://sina.com', // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
             imgUrl: 'https://img.alicdn.com/tps/TB1z.55OFXXXXcLXXXXXXXXXXXX-560-560.jpg', // 分享图标
