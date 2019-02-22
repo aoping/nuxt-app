@@ -20,12 +20,9 @@ export default {
   layout: 'mobile',
   async asyncData({ query, req, store, isServer }) {
     let { page = config.default_page, limit = config.default_limit } = query
-    let header = process.server ? {
-      headers: {
-           Cookie: req.headers.cookie
-      }
-      } : {}
-    let res = await getAllTopics(page, limit, header)
+    let res = await getAllTopics(page, limit)
+    console.log('asyncData')
+    console.log(res)
     // 处理成ant-design form要求的格式
     let formated = res.data.map((item, index) => {
       return Object.assign({}, item, {

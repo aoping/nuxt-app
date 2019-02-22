@@ -5,8 +5,8 @@ export async function getAccounts(page, limit, header) {
   return res
 }
 
-export async function getAllTopics(page, limit, header) {
-  let res = await axios.get('/api/topiclist?page='+page+'&limit='+limit, header)
+export async function getAllTopics(page, limit) {
+  let res = await axios.get('/api/topiclist?page='+page+'&limit='+limit)
   return res
 }
 

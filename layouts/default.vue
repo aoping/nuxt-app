@@ -3,11 +3,10 @@
     <a-layout-content>
       <nuxt/>
     </a-layout-content>
-    <a-layout-footer>Footer</a-layout-footer>
   </a-layout>
 </template>
-
 <style scoped>
+
 html {
   font-family: "Source Sans Pro", -apple-system, BlinkMacSystemFont, "Segoe UI",
     Roboto, "Helvetica Neue", Arial, sans-serif;
@@ -27,6 +26,9 @@ html {
   margin: 0;
 }
 
+.ant-layout {
+  background: #fff;
+}
 .ant-layout-header,
 .ant-layout-footer {
   background: #7dbcea;
