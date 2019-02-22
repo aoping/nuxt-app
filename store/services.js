@@ -18,3 +18,7 @@ export async function getTopic(id) {
 export async function getWechatOAuth (url) {
   return axios.get(`/wechat-oauth?url=${encodeURIComponent(url)}`)
 }
+
+export function getWechatSignature (url) {
+  return axios.get(`/wechat-signature?url=${url}`)
+}

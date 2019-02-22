@@ -44,7 +44,8 @@ TokenSchema.statics = {
 
   async saveToken(data) {
     let token = await this.findOne({
-      appID: data.appID
+      appID: data.appID,
+      name: data.name
     }).exec()
 
     if (token) {

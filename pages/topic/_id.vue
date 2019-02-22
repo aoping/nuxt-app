@@ -26,11 +26,16 @@
 
 <script>
 import {getTopic} from '@/store/services'
+import wechat from '@/static/mixins/wechat.js'
+
 export default {
   middleware: 'wechat-auth',
   layout: 'topic',
+  mixins: [wechat],
   async asyncData({ params }) {
     const res = await getTopic(params.id)
+    console.log('getTopic')
+    console.log(res)
     let topicUser = {}
     if (res.success) {
       return { topic: res.data }
@@ -42,6 +47,12 @@ export default {
     }
   },
   components: {},
+  async mounted() {
+    const url = window.location.href
+    console.log('beforeMount')
+    console.log(url)
+    await this.wechatInit(url)
+  }
 }
 </script>
 

@@ -1,16 +1,12 @@
 {
   "db": "mongodb://localhost/nuxt-app",
   "base": "http://127.0.0.1:3000",
-  "SITE_ROOT_URL": "http://codingdream.ngrok.cc",
-  "wechat": {
-    "appID": "wx01cac65ff4e3eb2a",
-    "appSecret": "836850683882e21cd95c29828551c354",
-    "token": "zoro12345678"
-  },
+  "SITE_ROOT_URL": "http://iappkb.natappfree.cc",
   "qiniu": {
     "AK": "-dLG8KAfn4_fmsxZBfeqDgrtyM7e3rIzQezhdxvk",
     "SK": "wcgqiwkL7QaX5Bz8OtyJEfLuAFb_qCrqFg_eNbW0"
   },
   "default_limit": 20,
-  "default_page": 1
+  "default_page": 1,
+  "wxaccount_token_prefix": "NUXTAPP"
 }

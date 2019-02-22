@@ -2,11 +2,6 @@
   "db": "mongodb://localhost/nuxt-app",
   "base": "http://127.0.0.1:3000",
   "SITE_ROOT_URL": "http://iappkb.natappfree.cc",
-  "wechat": {
-    "appID": "wxdbdb7b0ae3806487",
-    "appSecret": "1213ec8f0dadfaccc92eb038e2a0d206",
-    "token": "zoro12345678"
-  },
   "qiniu": {
     "AK": "-dLG8KAfn4_fmsxZBfeqDgrtyM7e3rIzQezhdxvk",
     "SK": "wcgqiwkL7QaX5Bz8OtyJEfLuAFb_qCrqFg_eNbW0"

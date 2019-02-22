@@ -1,6 +1,7 @@
 const sha1 = require('sha1')
 const request = require('request-promise')
 const dbHelp = require('../../database/dbHelp')
+const util = require('./util')
 
 const base = 'https://api.weixin.qq.com/cgi-bin/'
 const api = {
@@ -84,6 +85,25 @@ module.exports = class WechatLib {
     }
   }
 
+  async getSignatureAsync (url) {
+    const data = await this.fetchAccessToken()
+    console.log('access_token')
+    console.log(data)
+    const token = data.token
+    const ticketData = await this.fetchTicket(token)
+    const ticket = ticketData.token
+
+    let params = this.sign(ticket, url)
+    params.appId = this.appID
+
+    return params
+  }
+
+  // 签名
+  sign (ticket, url) {
+    return util.sign(ticket, url)
+  }
+
   isValidToken (data) {
     if (!data || !data.expires_in) {
       return false
@@ -123,6 +143,36 @@ module.exports = class WechatLib {
     data.expires_in = expiresIn
     data.appID = this.appID
     data.name = 'access_token'
+    return data
+  }
+
+  async fetchTicket (token) {
+    let query = {appID: this.appID, name: 'ticket'}
+    let data = await dbHelp.tokenHelp.getToken(query)
+
+    if (!this.isValidToken(data)) {
+      data = await this.updateTicket(token)
+    }
+
+    await dbHelp.tokenHelp.saveToken(data)
+
+    return data
+  }
+
+  async updateTicket (token) {
+    const url = api.ticket.get + '&access_token=' + token + '&type=jsapi'
+
+    let data = await this.request({url: url})
+    const now = (new Date().getTime())
+    console.log('updateTicket')
+    console.log(data)
+    const expiresIn = now + (data.expires_in - 20) * 1000
+
+    data.token = data.ticket
+    data.expires_in = expiresIn
+    data.appID = this.appID
+    data.name = 'ticket'
+
     return data
   }
 
