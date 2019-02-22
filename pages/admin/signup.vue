@@ -63,6 +63,7 @@
       </a-form-item>
       <a-form-item v-bind="tailFormItemLayout">
         <a-button type="primary" html-type="submit">Register</a-button>
+        <nuxt-link class="btn-sign" to="/admin/login">去登录</nuxt-link>
       </a-form-item>
     </a-form>
   </div>
@@ -142,6 +143,10 @@ export default {
 </script>
 
 <style scoped>
+.btn-sign{
+  display: inline-block;
+  margin: 20px 30px;
+}
 .ant-form {
   margin: 50px 0;
   max-width: 1000px;

@@ -3,6 +3,17 @@ const Topic = mongoose.model('Topic')
 const dbHelp = require('../database/dbHelp')
 const _ = require('lodash')
 
+module.exports.all = async (ctx, next) => {
+  const data = await dbHelp.topicHelp.getTopics({}, Object.assign({
+    sort: '-meta.updatedAt'
+  }, ctx.pagination))
+  ctx.body = {
+    data: data,
+    success: true
+  }
+}
+
+
 module.exports.list = async (ctx, next) => {
   const data = await dbHelp.topicHelp.getTopics({user: ctx.session.user._id}, Object.assign({
     sort: '-meta.updatedAt'

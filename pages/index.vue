@@ -1,68 +1,119 @@
 <template>
-  <section class="container">
-    <div>
-      <logo />
-      <h1 class="title">
-        nuxt-app
-      </h1>
-      <h2 class="subtitle">
-        My world-class Nuxt.js project
-      </h2>
-      <div class="links">
-        <a
-          href="https://nuxtjs.org/"
-          target="_blank"
-          class="button--green"
-        >Documentation</a>
-        <a
-          href="https://github.com/nuxt/nuxt.js"
-          target="_blank"
-          class="button--grey"
-        >GitHub</a>
-      </div>
-    </div>
-  </section>
+   <div class="content">
+    <nuxt-link class="btn-sign" to="/admin/login">登录/注册</nuxt-link>
+    <a-table bordered :dataSource="topics" :columns="columns">
+      <template slot="name" slot-scope="text, record">
+        <nuxt-link :to="'/topic/'+record._id" target="_blank">
+          {{text}}
+        </nuxt-link>
+      </template>
+    </a-table>
+  </div>
 </template>
 
 <script>
-import Logo from '~/components/Logo.vue'
+import { mapState, mapActions, mapMutations, mapGetters } from 'vuex'
+import config from '@/config'
+import {getAllTopics} from '@/store/services'
 
 export default {
+  layout: 'mobile',
+  async asyncData({ query, req, store, isServer }) {
+    let { page = config.default_page, limit = config.default_limit } = query
+    let header = process.server ? {
+      headers: {
+           Cookie: req.headers.cookie
+      }
+      } : {}
+    let res = await getAllTopics(page, limit, header)
+    // 处理成ant-design form要求的格式
+    let formated = res.data.map((item, index) => {
+      return Object.assign({}, item, {
+        key: index,
+        name: item.title
+      })
+    })
+    return {topics: formated}
+  },
   components: {
-    Logo
-  }
-}
+  },
+  data () {
+    return {
+      topics: [],
+      count: 2,
+      columns: [
+        {
+          title: 'name',
+          dataIndex: 'name',
+          width: '20%',
+          scopedSlots: { customRender: 'name' },
+        },
+        {
+          title: 'author',
+          dataIndex: 'author',
+        },
+        {
+          title: 'accountName',
+          dataIndex: 'accountName',
+        },
+      ],
+    }
+  },
+  methods: {
+
+  },
+};
 </script>
 
-<style>
-.container {
-  margin: 0 auto;
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
+<style scoped>
+.btn-sign{
+  display: inline-block;
+  margin: 20px 30px;
+}
+.content{
+  padding-top: 30px;
 }
 
-.title {
-  font-family: 'Quicksand', 'Source Sans Pro', -apple-system, BlinkMacSystemFont,
-    'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-  display: block;
-  font-weight: 300;
-  font-size: 100px;
-  color: #35495e;
-  letter-spacing: 1px;
+.editable-cell {
+  position: relative;
 }
 
-.subtitle {
-  font-weight: 300;
-  font-size: 42px;
-  color: #526488;
-  word-spacing: 5px;
-  padding-bottom: 15px;
+.editable-cell-input-wrapper,
+.editable-cell-text-wrapper {
+  padding-right: 24px;
 }
 
-.links {
-  padding-top: 15px;
+.editable-cell-text-wrapper {
+  padding: 5px 24px 5px 5px;
+}
+
+.editable-cell-icon,
+.editable-cell-icon-check {
+  position: absolute;
+  right: 0;
+  width: 20px;
+  cursor: pointer;
+}
+
+.editable-cell-icon {
+  line-height: 18px;
+  display: none;
+}
+
+.editable-cell-icon-check {
+  line-height: 28px;
+}
+
+.editable-cell:hover .editable-cell-icon {
+  display: inline-block;
+}
+
+.editable-cell-icon:hover,
+.editable-cell-icon-check:hover {
+  color: #108ee9;
+}
+
+.editable-add-btn {
+  margin-bottom: 8px;
 }
 </style>
