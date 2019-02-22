@@ -8,5 +8,6 @@
   },
   "default_limit": 20,
   "default_page": 1,
-  "wxaccount_token_prefix": "NUXTAPP"
+  "wxaccount_token_prefix": "NUXTAPP",
+  "sentryDNS": "https://86627f6c451a408d91092579611f190e@sentry.io/1400262"
 }

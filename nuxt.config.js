@@ -33,6 +33,10 @@ module.exports = {
       },
       {
         src: 'http://wechatfe.github.io/vconsole/lib/vconsole.min.js?v=3.3.0'
+      },
+      {
+        src: 'https://browser.sentry-cdn.com/4.6.3/bundle.min.js',
+        crossorigin: 'anonymous'
       }
     ]
   },
