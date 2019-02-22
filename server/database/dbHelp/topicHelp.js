@@ -26,12 +26,9 @@ module.exports.getTopics = async function (query, opt) {
         'meta', 'accountName'])
         const account = await accountHelp.getAccount({_id: topic.account})
         topic.accountName = account.name
-        console.log(topic)
         return topic
       })
     )
 
-  console.log('getTopics')
-  console.log(data)
   return data
 }

@@ -1,7 +1,7 @@
 {
   "db": "mongodb://localhost/nuxt-app",
   "base": "http://127.0.0.1:3000",
-  "SITE_ROOT_URL": "http://codingdream.ngrok.cc",
+  "SITE_ROOT_URL": "http://iappkb.natappfree.cc",
   "wechat": {
     "appID": "wxdbdb7b0ae3806487",
     "appSecret": "1213ec8f0dadfaccc92eb038e2a0d206",

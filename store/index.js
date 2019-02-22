@@ -8,6 +8,7 @@ const createStore = () => {
     state: {
       selectedMenuKey: '',
       user: null,
+      authUser: null,
       accountList: [],
       account: null,
       topicList: [],

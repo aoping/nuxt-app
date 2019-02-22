@@ -27,6 +27,7 @@
 <script>
 import {getTopic} from '@/store/services'
 export default {
+  middleware: 'wechat-auth',
   layout: 'topic',
   async asyncData({ params }) {
     const res = await getTopic(params.id)
@@ -127,12 +128,13 @@ export default {
     position: relative;
     z-index: 0;
 }
+
+</style>
+<style>
 .rich_media_content p{
   margin-bottom: 0;
 }
-</style>
-<style>
-p{
-  margin-bottom: 0;
+.rich_media_content>p>img{
+  width: 100%;
 }
 </style>

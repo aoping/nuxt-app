@@ -14,3 +14,7 @@ export async function getTopic(id) {
   let res = await axios.get('/api/topic/' + id)
   return res
 }
+
+export async function getWechatOAuth (url) {
+  return axios.get(`/wechat-oauth?url=${encodeURIComponent(url)}`)
+}

@@ -1,4 +1,4 @@
-import { getAccounts, getTopics, getTopic } from './services'
+import { getAccounts, getTopics, getTopic, getWechatOAuth } from './services'
 import axios from "../plugins/axios";
 import _ from 'lodash'
 
@@ -234,5 +234,13 @@ export default {
         throw new Error('错误')
       }
     }
+  },
+
+  getWechatOAuth({ commit }, url) {
+    return getWechatOAuth(url)
+  },
+
+  setAuthUser ({ commit }, authUser) {
+    commit('SET_AUTHUSER', authUser)
   },
 }
